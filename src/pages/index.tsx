@@ -1,25 +1,34 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { FiArrowRight } from 'react-icons/fi';
 import Head from 'next/head';
+import Link from 'next/Link';
 
-import guarapagymLogo from '../assets/guarapagym-logo.png';
+import { Container, Title } from '../styles/pages/LandingPage';
 
-import { Container } from '../styles/pages/Home';
+const LandingPage: React.FC = () => {
+  const [isRed, setIsRed] = useState(true);
 
-const Home: React.FC = () => {
   return (
     <Container>
       <Head>
-        <title>Homepage</title>
+        <title>Guarapagym</title>
       </Head>
       <div>
-        <img src={guarapagymLogo} alt="" />
+        <img src="/assets/guarapagym-logo.png" alt="" />
         <span>
-          Eleve suas habilidades para o próximo nível com a{' '}
+          Eleve suas <br /> habilidades para o <br /> próximo nível com a <br />
           <strong>Guarapagym</strong>
         </span>
+        <Link href="/login">
+          <a className="button">
+            Entrar
+            <FiArrowRight color="#F58426" size={48} />
+          </a>
+        </Link>
       </div>
+      <p className="copy-right">Guarapari IT Ltda - Copyright 2021</p>
     </Container>
   );
 };
 
-export default Home;
+export default LandingPage;

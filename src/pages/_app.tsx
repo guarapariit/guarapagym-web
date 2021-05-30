@@ -4,13 +4,17 @@ import { ThemeProvider } from 'styled-components';
 
 import GlobalStyle from '../styles/global';
 import theme from '../styles/theme';
+import { UserContextProvider } from './contexts/UserContext';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <Component {...pageProps} />
-      <GlobalStyle />
-    </ThemeProvider>
+    <UserContextProvider>
+      <ThemeProvider theme={theme}>
+        {/* <h1> ajdskçfjsdakçfj</h1> */}
+        <Component {...pageProps} />
+        <GlobalStyle />
+      </ThemeProvider>
+    </UserContextProvider>
   );
 };
 
