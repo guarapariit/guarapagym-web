@@ -44,7 +44,7 @@ const Login = () => {
       return;
     }
 
-    const data = await authUser(email, password);
+    const data = await authUser(email, password, isRememberMeActive);
 
     if (data.auth) {
       router.push(`/${data.userRole}`);

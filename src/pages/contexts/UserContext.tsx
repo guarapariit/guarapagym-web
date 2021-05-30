@@ -19,6 +19,7 @@ interface UserContextData {
   authUser: (
     email: string,
     password: string,
+    remember: boolean,
   ) => Promise<{ auth: boolean; status: number; userRole?: number }>;
 }
 

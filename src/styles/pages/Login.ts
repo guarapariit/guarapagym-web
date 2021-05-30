@@ -11,6 +11,10 @@ export const Container = styled.div`
 
   background: ${props => props.theme.colors.landingPageBackground};
 
+  @media (max-width: 1024px) {
+    flex-direction: column;
+  }
+
   > div {
     flex-grow: 1;
     background: ${props => props.theme.colors.orange};
@@ -19,6 +23,16 @@ export const Container = styled.div`
       margin-top: ${rem(30)};
       height: ${rem(250)};
       width: unset;
+
+      @media (max-width: 1024px) {
+        width: 100%;
+        height: auto;
+      }
+    }
+
+    @media (max-width: 1024px) {
+      flex-grow: unset;
+      width: 100%;
     }
   }
 
@@ -32,6 +46,12 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
     flex-direction: column;
+
+    @media (max-width: 1024px) {
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+    }
 
     h1 {
       font-size: ${rem(40)};
@@ -79,6 +99,7 @@ export const Container = styled.div`
       margin-left: ${rem(60)};
       margin-bottom: ${rem(60)};
       cursor: pointer;
+      user-select: none;
 
       div {
         height: ${rem(20)};

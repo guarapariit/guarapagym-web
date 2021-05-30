@@ -10,6 +10,7 @@ export const Container = styled.div`
   flex-direction: column;
 
   background: ${props => props.theme.colors.landingPageBackground};
+  overflow: hidden;
 
   div {
     position: absolute;
@@ -32,8 +33,23 @@ export const Container = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
+    @media (max-width: 1024px) {
+      position: static;
+      padding: 20px;
+      top: 0;
+      left: 0;
+      transform: translate(0, 0);
+
+      background-size: 100vw auto;
+      background-position: bottom center;
+    }
+
     img {
       width: 500px;
+
+      @media (max-width: 1024px) {
+        width: 100%;
+      }
     }
 
     span {
@@ -47,6 +63,11 @@ export const Container = styled.div`
 
       @media (max-height: 720px) {
         font-size: ${rem(50)};
+      }
+
+      @media (max-width: 1024px) {
+        font-size: 34px;
+        display: block;
       }
     }
 
@@ -75,6 +96,22 @@ export const Container = styled.div`
 
       :hover {
         background-color: ${colorShade(theme.colors.black, 8)};
+      }
+
+      @media (max-width: 1024px) {
+        width: 80%;
+        height: 56px;
+        left: 50%;
+        bottom: 40px;
+
+        transform: translate(-50%);
+        padding-right: 15px;
+
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+        svg {
+          height: 36px;
+        }
       }
     }
   }
