@@ -10,12 +10,16 @@ import validateEmail from '../../utils/validateEmail';
 import { UserContext } from '../contexts/UserContext';
 
 const Login = () => {
-  const { authUser } = useContext(UserContext);
+  const {
+    authUser,
+    isLoggedIn,
+    toggleIsRememberMeActive,
+    isRememberMeActive,
+  } = useContext(UserContext);
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  const [isRememberMeActive, setIsRememberMeActive] = useState(true);
   const [email, setEmail] = useState('');
   const [isEmailValid, setIsEmailValid] = useState(true);
   const [password, setPassword] = useState('');
@@ -46,8 +50,10 @@ const Login = () => {
 
     const data = await authUser(email, password, isRememberMeActive);
 
+    console.log(data.user);
+
     if (data.auth) {
-      router.push(`/${data.userRole}`);
+      router.push(`/${data.user.role_name}`);
     } else {
       if (data.status === 401) {
         resetForm();
@@ -58,10 +64,6 @@ const Login = () => {
     }
 
     setIsLoading(false);
-  }
-
-  function handleRememberMe() {
-    setIsRememberMeActive(oldValue => !oldValue);
   }
 
   function handleEmailChange(e) {
@@ -117,7 +119,7 @@ const Login = () => {
 
         <div
           className={`remember-me ${isRememberMeActive ? 'active' : ''}`}
-          onClick={handleRememberMe}
+          onClick={toggleIsRememberMeActive}
         >
           <div>{isRememberMeActive && <FiCheck />}</div>
           <span>Lembrar-me</span>

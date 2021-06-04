@@ -9,9 +9,10 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "next": "9.5.2",
+    "next": "^10.2.3",
     "next-images": "^1.4.1",
     "react": "16.13.1",
+    "react-cookie": "^4.0.3",
     "react-dom": "16.13.1",
     "react-icons": "^4.2.0",
     "react-loader-spinner": "^4.0.0",

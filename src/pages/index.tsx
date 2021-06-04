@@ -1,12 +1,28 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import Head from 'next/head';
 import Link from 'next/Link';
+import { useRouter } from 'next/router';
 
 import { Container, Title } from '../styles/pages/LandingPage';
+import { UserContext } from './contexts/UserContext';
 
 const LandingPage: React.FC = () => {
-  const [isRed, setIsRed] = useState(true);
+  const { isLoggedIn, user } = useContext(UserContext);
+
+  const router = useRouter();
+
+  function handleLinkClick(e) {
+    e.preventDefault();
+
+    console.log(isLoggedIn);
+
+    if (isLoggedIn) {
+      router.push(`/${user.role_name}`);
+    } else {
+      router.push(`/login`);
+    }
+  }
 
   return (
     <Container>
@@ -20,7 +36,7 @@ const LandingPage: React.FC = () => {
           <strong>Guarapagym</strong>
         </span>
         <Link href="/login">
-          <a className="button">
+          <a className="button" onClick={handleLinkClick}>
             Entrar
             <FiArrowRight color="#F58426" size={48} />
           </a>
