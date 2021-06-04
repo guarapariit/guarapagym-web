@@ -20,6 +20,12 @@ export const ListsContainer = styled.div`
 
 export const List = styled.div`
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+  h2 {
+    margin-bottom: 20px;
+  }
 
   > div {
     display: flex;
@@ -116,5 +122,28 @@ export const List = styled.div`
         background-color: ${theme.colors.white};
       }
     }
+  }
+
+  ul {
+    flex-grow: 1;
+  }
+
+  .add-button {
+    height: 40px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+
+    background-color: ${theme.colors.brown};
+    border: none;
+    border-radius: 50px 0 0 50px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+
+    text-transform: uppercase;
+    color: ${theme.colors.white};
+    font-weight: bold;
+    font-size: ${rem(15)};
   }
 `;

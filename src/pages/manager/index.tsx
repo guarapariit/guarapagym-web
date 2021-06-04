@@ -1,12 +1,22 @@
 import Head from 'next/head';
-import { useState } from 'react';
-import { FiSearch, FiChevronDown, FiChevronUp } from 'react-icons/fi';
+import Image from 'next/image';
+import { useContext, useState } from 'react';
+import {
+  FiSearch,
+  FiChevronDown,
+  FiChevronUp,
+  FiPlusCircle,
+  FiUser,
+} from 'react-icons/fi';
+import { UserContext } from '../contexts/UserContext';
 
 import SideMenu from '../../components/SideMenu';
 import { Container, ListsContainer, List } from '../../styles/pages/Menager';
 import theme from '../../styles/theme';
 
 function Manager() {
+  const { user } = useContext(UserContext);
+
   const [isStudentSelectorOpen, setIsStudentSelectorOpen] = useState(false);
   const [isInstrutorSelectorOpen, setIsInstrutorSelectorOpen] = useState(false);
 
@@ -80,19 +90,21 @@ function Manager() {
                 </button>
               </div>
             </div>
+            <ul></ul>
+            <button className="add-button">
+              <span>Adicionar</span>
+              <FiPlusCircle size={20} color={theme.colors.white} />
+            </button>
           </List>
           <List>
             <h2>Instrutores</h2>
             <div>
               <div
-                className={`selector ${isInstrutorSelectorOpen ? 'open' : ''}`}
+                className={`selector ${isStudentSelectorOpen ? 'open' : ''}`}
               >
-                <div
-                  className="selected"
-                  onClick={toggleIsInstrutorSelectorOpen}
-                >
-                  <span>{InstrutorSelectorSelected}</span>
-                  {isInstrutorSelectorOpen ? (
+                <div className="selected" onClick={toggleIsStudentSelectorOpen}>
+                  <span>{studentSelectorSelected}</span>
+                  {isStudentSelectorOpen ? (
                     <FiChevronUp size={20} color={theme.colors.brown} />
                   ) : (
                     <FiChevronDown size={20} color={theme.colors.brown} />
@@ -105,8 +117,8 @@ function Manager() {
                         key={index}
                         value={option}
                         onClick={() => {
-                          setInstrutorSelectorSelected(option);
-                          setIsInstrutorSelectorOpen(false);
+                          setStudentSelectorSelected(option);
+                          setIsStudentSelectorOpen(false);
                         }}
                       >
                         {option}
@@ -122,6 +134,11 @@ function Manager() {
                 </button>
               </div>
             </div>
+            <ul></ul>
+            <button className="add-button">
+              <span>Adicionar</span>
+              <FiPlusCircle size={20} color={theme.colors.white} />
+            </button>
           </List>
         </ListsContainer>
       </Container>

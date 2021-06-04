@@ -1,7 +1,6 @@
 import React, { useCallback, useContext, useState } from 'react';
 import { FiArrowRight } from 'react-icons/fi';
 import Head from 'next/head';
-import Link from 'next/Link';
 import { useRouter } from 'next/router';
 
 import { Container, Title } from '../styles/pages/LandingPage';
@@ -35,12 +34,10 @@ const LandingPage: React.FC = () => {
           Eleve suas <br /> habilidades para o <br /> próximo nível com a <br />
           <strong>Guarapagym</strong>
         </span>
-        <Link href="/login">
-          <a className="button" onClick={handleLinkClick}>
-            Entrar
-            <FiArrowRight color="#F58426" size={48} />
-          </a>
-        </Link>
+        <a className="button" onClick={handleLinkClick}>
+          Entrar
+          <FiArrowRight color="#F58426" size={48} />
+        </a>
       </div>
       <p className="copy-right">Guarapari IT Ltda - Copyright 2021</p>
     </Container>
