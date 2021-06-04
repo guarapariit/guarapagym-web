@@ -32,7 +32,7 @@ interface UserContextData {
 
 export const UserContext = createContext({} as UserContextData);
 
-export function UserContextProvider({ children }) {
+export default function UserContextProvider({ children }) {
   const [user, setUser] = useState({} as User);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isRememberMeActive, setIsRememberMeActive] = useState(true);

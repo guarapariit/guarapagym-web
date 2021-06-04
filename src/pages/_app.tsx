@@ -5,7 +5,7 @@ import { CookiesProvider } from 'react-cookie';
 
 import GlobalStyle from '../styles/global';
 import theme from '../styles/theme';
-import { UserContextProvider } from './contexts/UserContext';
+import UserContextProvider from './contexts/UserContext';
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
   return (
