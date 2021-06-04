@@ -145,5 +145,11 @@ export const List = styled.div`
     color: ${theme.colors.white};
     font-weight: bold;
     font-size: ${rem(15)};
+
+    transition: all 0.2s;
+
+    :hover {
+      background-color: ${colorShade(theme.colors.brown, -10)};
+    }
   }
 `;

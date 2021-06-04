@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { createContext, useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import api from '../../services/api';
@@ -24,9 +25,10 @@ interface UserContextData {
     password: string,
     remember: boolean,
   ) => Promise<{ auth: boolean; status: number; user?: User }>;
+  logout: () => void;
+  toggleIsRememberMeActive: () => void;
   user: User;
   isRememberMeActive: boolean;
-  toggleIsRememberMeActive: () => void;
   isLoggedIn: boolean;
 }
 
@@ -41,6 +43,7 @@ export default function UserContextProvider({ children }) {
   const [tokenCookie, setTokenCookie, removeTokenCookie] = useCookies([
     'token',
   ]);
+  const router = useRouter();
 
   useEffect(() => {});
 
@@ -49,7 +52,7 @@ export default function UserContextProvider({ children }) {
     const loggedUserToken = tokenCookie.token;
 
     if (loggedUser && loggedUserToken) {
-      loginUser(loggedUser, loggedUserToken);
+      login(loggedUser, loggedUserToken);
     }
   }, []);
 
@@ -60,7 +63,7 @@ export default function UserContextProvider({ children }) {
         password,
       });
 
-      loginUser(data.user, data.token);
+      login(data.user, data.token);
 
       return { auth: true, status: 200, user: data.user };
     } catch (error) {
@@ -68,7 +71,7 @@ export default function UserContextProvider({ children }) {
     }
   }
 
-  function loginUser(user: User, token: string) {
+  function login(user: User, token: string) {
     setUser(user);
     setIsLoggedIn(true);
 
@@ -86,6 +89,15 @@ export default function UserContextProvider({ children }) {
     }
   }
 
+  async function logout() {
+    await router.push('/');
+
+    setUser(undefined);
+    setIsLoggedIn(false);
+    removeUserCookie('user');
+    removeTokenCookie('token');
+  }
+
   function toggleIsRememberMeActive() {
     setIsRememberMeActive(!isRememberMeActive);
   }
@@ -96,6 +108,7 @@ export default function UserContextProvider({ children }) {
         isRememberMeActive,
         user,
         isLoggedIn,
+        logout,
         authUser,
         toggleIsRememberMeActive,
       }}

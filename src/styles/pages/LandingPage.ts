@@ -93,6 +93,7 @@ export const Container = styled.div`
       ${flexCenter}
       justify-content: space-between;
       transition: all 0.2s ease-in-out;
+      cursor: pointer;
 
       :hover {
         background-color: ${colorShade(theme.colors.black, 8)};
