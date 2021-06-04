@@ -100,11 +100,14 @@ function Manager() {
             <h2>Instrutores</h2>
             <div>
               <div
-                className={`selector ${isStudentSelectorOpen ? 'open' : ''}`}
+                className={`selector ${isInstrutorSelectorOpen ? 'open' : ''}`}
               >
-                <div className="selected" onClick={toggleIsStudentSelectorOpen}>
-                  <span>{studentSelectorSelected}</span>
-                  {isStudentSelectorOpen ? (
+                <div
+                  className="selected"
+                  onClick={toggleIsInstrutorSelectorOpen}
+                >
+                  <span>{InstrutorSelectorSelected}</span>
+                  {isInstrutorSelectorOpen ? (
                     <FiChevronUp size={20} color={theme.colors.brown} />
                   ) : (
                     <FiChevronDown size={20} color={theme.colors.brown} />
@@ -117,8 +120,8 @@ function Manager() {
                         key={index}
                         value={option}
                         onClick={() => {
-                          setStudentSelectorSelected(option);
-                          setIsStudentSelectorOpen(false);
+                          setInstrutorSelectorSelected(option);
+                          setIsInstrutorSelectorOpen(false);
                         }}
                       >
                         {option}
