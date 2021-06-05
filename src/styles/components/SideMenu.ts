@@ -112,6 +112,7 @@ export const Modal = styled.div`
   width: 100vw;
 
   background: rgba(35, 35, 35, 0.26);
+  backdrop-filter: blur(8px);
 
   display: flex;
   align-items: center;

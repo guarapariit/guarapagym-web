@@ -43,9 +43,8 @@ export default function UserContextProvider({ children }) {
   const [tokenCookie, setTokenCookie, removeTokenCookie] = useCookies([
     'token',
   ]);
-  const router = useRouter();
 
-  useEffect(() => {});
+  const router = useRouter();
 
   useEffect(() => {
     const loggedUser = userCookie.user;
@@ -85,6 +84,8 @@ export default function UserContextProvider({ children }) {
       setTokenCookie('token', token, {
         expires,
       });
+
+      api.defaults.headers.authorization = `Bearer ${token}`;
     } else {
     }
   }

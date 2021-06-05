@@ -92,10 +92,12 @@ function Manager() {
               </div>
             </div>
             <ul></ul>
-            <button className="add-button">
-              <span>Adicionar</span>
-              <FiPlusCircle size={20} color={theme.colors.white} />
-            </button>
+            <Link href="/manager/new-instructor">
+              <a className="add-button">
+                <span>Adicionar</span>
+                <FiPlusCircle size={20} color={theme.colors.white} />
+              </a>
+            </Link>
           </List>
           <List>
             <h2>Instrutores</h2>
