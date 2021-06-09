@@ -1,7 +1,5 @@
-import axios from 'axios';
+import getApiClient from './axios';
 
-const api = axios.create({
-  baseURL: 'https://guarapagym.herokuapp.com',
-});
+const api = getApiClient();
 
 export default api;

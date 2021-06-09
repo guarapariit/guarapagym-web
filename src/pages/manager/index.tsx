@@ -9,14 +9,14 @@ import {
   FiPlusCircle,
   FiUser,
 } from 'react-icons/fi';
-import { UserContext } from '../contexts/UserContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 import SideMenu from '../../components/SideMenu';
 import { Container, ListsContainer, List } from '../../styles/pages/Menager';
 import theme from '../../styles/theme';
 
 function Manager() {
-  const { user } = useContext(UserContext);
+  const { user } = useContext(AuthContext);
 
   const [isStudentSelectorOpen, setIsStudentSelectorOpen] = useState(false);
   const [isInstrutorSelectorOpen, setIsInstrutorSelectorOpen] = useState(false);
@@ -92,7 +92,7 @@ function Manager() {
               </div>
             </div>
             <ul></ul>
-            <Link href="/manager/new-instructor">
+            <Link href="/manager/new-student">
               <a className="add-button">
                 <span>Adicionar</span>
                 <FiPlusCircle size={20} color={theme.colors.white} />

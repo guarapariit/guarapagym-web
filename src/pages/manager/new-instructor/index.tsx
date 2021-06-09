@@ -3,6 +3,10 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import Loader from 'react-loader-spinner';
 import SideMenu from '../../../components/SideMenu';
 import InputMask from 'react-input-mask';
+import {
+  NotificationContainer,
+  NotificationManager,
+} from 'react-notifications';
 
 import { Container, FormContainer } from '../../../styles/pages/new-instructor';
 import theme from '../../../styles/theme';
@@ -30,10 +34,18 @@ const NewInstructor: React.FC = () => {
       email,
       cpf,
       phone,
-      password: cpf,
+      password: cpf.match(/\d+/).join(''),
     };
 
-    setIsLoading(true);
+    if (!formIsFilled()) {
+      NotificationManager.error(
+        'Error message',
+        'Preencha todos os Campos!',
+        3000,
+      );
+
+      return;
+    }
 
     api.post('/instructors', user).then(response => {
       console.log(response);
@@ -52,6 +64,20 @@ const NewInstructor: React.FC = () => {
     setEmail('');
     setCpf('');
     setPhone('');
+  }
+
+  function formIsFilled() {
+    let isFormFilled = true;
+
+    const toVerify = [name, lastName, email, cpf, phone];
+
+    console.log('> call toVeirfy');
+
+    toVerify.forEach(item => {
+      if (item === '') isFormFilled = false;
+    });
+
+    return isFormFilled;
   }
 
   return (
@@ -169,6 +195,7 @@ const NewInstructor: React.FC = () => {
             <span>A senha é o CPF</span>
           </div>
         </Modal>
+        <NotificationContainer />
       </Container>
     </div>
   );

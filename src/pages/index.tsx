@@ -3,18 +3,16 @@ import { FiArrowRight } from 'react-icons/fi';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 
-import { Container, Title } from '../styles/pages/LandingPage';
-import { UserContext } from './contexts/UserContext';
+import { Container } from '../styles/pages/LandingPage';
+import { AuthContext } from './contexts/AuthContext';
 
 const LandingPage: React.FC = () => {
-  const { isLoggedIn, user } = useContext(UserContext);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   const router = useRouter();
 
   function handleLinkClick(e) {
     e.preventDefault();
-
-    console.log(isLoggedIn);
 
     if (isLoggedIn) {
       router.push(`/${user.role_name}`);

@@ -10,7 +10,7 @@ import {
   FiX,
 } from 'react-icons/fi';
 
-import { UserContext } from '../../pages/contexts/UserContext';
+import { AuthContext } from '../../pages/contexts/AuthContext';
 import {
   Container,
   UserControls,
@@ -19,7 +19,7 @@ import {
 import theme from '../../styles/theme';
 
 function SideMenu() {
-  const { user, logout } = useContext(UserContext);
+  const { user, logout } = useContext(AuthContext);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

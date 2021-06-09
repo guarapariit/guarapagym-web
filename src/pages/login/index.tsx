@@ -7,7 +7,7 @@ import Loader from 'react-loader-spinner';
 
 import { Container } from '../../styles/pages/Login';
 import validateEmail from '../../utils/validateEmail';
-import { UserContext } from '../contexts/UserContext';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Login = () => {
   const {
@@ -15,7 +15,7 @@ const Login = () => {
     isLoggedIn,
     toggleIsRememberMeActive,
     isRememberMeActive,
-  } = useContext(UserContext);
+  } = useContext(AuthContext);
 
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
