@@ -80,3 +80,25 @@ export function colorShade(col, amt) {
 
   return `#${rr}${gg}${bb}`;
 }
+
+export function customScrollbar() {
+  return `
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #b8b8b8;
+    border-radius: 0px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: ${colorShade('#b8b8b8', -20)};
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-radius: 0px;
+    box-shadow: inset 7px 10px 12px #f0f0f0;
+  }`;
+}

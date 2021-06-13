@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rem, flexCenter, colorShade } from '../global';
+import { rem, flexCenter, colorShade, customScrollbar } from '../global';
 import theme from '../theme';
 
 export const Container = styled.div`
@@ -97,24 +97,7 @@ export const FormContainer = styled.div`
 
       overflow-y: auto;
 
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-
-      ::-webkit-scrollbar-thumb {
-        background: #b8b8b8;
-        border-radius: 0px;
-      }
-
-      ::-webkit-scrollbar-thumb:hover {
-        background: ${colorShade('#b8b8b8', -20)};
-      }
-
-      ::-webkit-scrollbar-track {
-        background: #ffffff;
-        border-radius: 0px;
-        box-shadow: inset 7px 10px 12px #f0f0f0;
-      }
+      ${customScrollbar()}
 
       .card {
         height: 80px;

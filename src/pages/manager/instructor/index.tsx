@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import Loader from 'react-loader-spinner';
 import SideMenu from '../../../components/SideMenu';
 import InputMask from 'react-input-mask';
@@ -14,6 +14,8 @@ import api from '../../../services/api';
 import { Modal } from '../../../styles/pages/new-instructor';
 import { FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
 import Link from 'next/link';
+import { parseCookies } from 'nookies';
+import { GetServerSideProps } from 'next';
 
 const NewInstructor: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -199,6 +201,23 @@ const NewInstructor: React.FC = () => {
       </Container>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { ['guarapagym.token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
 };
 
 export default NewInstructor;

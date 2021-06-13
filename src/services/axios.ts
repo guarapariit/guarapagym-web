@@ -9,7 +9,8 @@ export default function getApiClient(ctx?: any) {
   });
 
   api.interceptors.request.use(config => {
-    console.log(config);
+    const { url, method, baseURL } = config;
+    console.log(`> ${method} ${url}`);
 
     return config;
   });

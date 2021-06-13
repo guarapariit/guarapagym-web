@@ -1,49 +1,25 @@
 import Head from 'next/head';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useContext, useState } from 'react';
-import {
-  FiSearch,
-  FiChevronDown,
-  FiChevronUp,
-  FiPlusCircle,
-  FiUser,
-} from 'react-icons/fi';
-import { AuthContext } from '../contexts/AuthContext';
+import { GetServerSideProps } from 'next';
+import { parseCookies } from 'nookies';
+import { useState } from 'react';
 
 import SideMenu from '../../components/SideMenu';
-import { Container, ListsContainer, List } from '../../styles/pages/Menager';
+import getApiClient from '../../services/axios';
+
+import { InstructorI, StudentI } from '../../types';
+
+import { Container, ListsContainer } from '../../styles/pages/Menager';
 import theme from '../../styles/theme';
+import { useEffect } from 'react';
+import { getSortedRoutes } from 'next/dist/next-server/lib/router/utils';
+import UsersList from '../../components/UsersList';
 
-function Manager() {
-  const { user } = useContext(AuthContext);
+interface ManagerProps {
+  instructors: InstructorI[];
+  students: StudentI[];
+}
 
-  const [isStudentSelectorOpen, setIsStudentSelectorOpen] = useState(false);
-  const [isInstrutorSelectorOpen, setIsInstrutorSelectorOpen] = useState(false);
-
-  const [studentSelectorSelected, setStudentSelectorSelected] = useState(
-    'Ultimos editados',
-  );
-  const [InstrutorSelectorSelected, setInstrutorSelectorSelected] = useState(
-    'Ultimos editados',
-  );
-
-  const selectorOptions = [
-    'Últimos editados',
-    'Tempo que foi editado',
-    'Últimos cadastrados',
-    'A - Z',
-    'Z - A',
-  ];
-
-  function toggleIsStudentSelectorOpen() {
-    setIsStudentSelectorOpen(!isStudentSelectorOpen);
-  }
-
-  function toggleIsInstrutorSelectorOpen() {
-    setIsInstrutorSelectorOpen(!isInstrutorSelectorOpen);
-  }
-
+function Manager({ instructors, students }: ManagerProps) {
   return (
     <div>
       <Head>
@@ -53,105 +29,45 @@ function Manager() {
       <Container>
         <SideMenu />
         <ListsContainer>
-          <List>
-            <h2>Alunos</h2>
-            <div>
-              <div
-                className={`selector ${isStudentSelectorOpen ? 'open' : ''}`}
-              >
-                <div className="selected" onClick={toggleIsStudentSelectorOpen}>
-                  <span>{studentSelectorSelected}</span>
-                  {isStudentSelectorOpen ? (
-                    <FiChevronUp size={20} color={theme.colors.brown} />
-                  ) : (
-                    <FiChevronDown size={20} color={theme.colors.brown} />
-                  )}
-                </div>
-                <ul className="to-select">
-                  {selectorOptions.map((option, index) => {
-                    return (
-                      <li
-                        key={index}
-                        value={option}
-                        onClick={() => {
-                          setStudentSelectorSelected(option);
-                          setIsStudentSelectorOpen(false);
-                        }}
-                      >
-                        {option}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className="search-container">
-                <input type="text" name="search" />
-                <button>
-                  <FiSearch size={20} color={theme.colors.brown} />
-                </button>
-              </div>
-            </div>
-            <ul></ul>
-            <Link href="/manager/new-student">
-              <a className="add-button">
-                <span>Adicionar</span>
-                <FiPlusCircle size={20} color={theme.colors.white} />
-              </a>
-            </Link>
-          </List>
-          <List>
-            <h2>Instrutores</h2>
-            <div>
-              <div
-                className={`selector ${isInstrutorSelectorOpen ? 'open' : ''}`}
-              >
-                <div
-                  className="selected"
-                  onClick={toggleIsInstrutorSelectorOpen}
-                >
-                  <span>{InstrutorSelectorSelected}</span>
-                  {isInstrutorSelectorOpen ? (
-                    <FiChevronUp size={20} color={theme.colors.brown} />
-                  ) : (
-                    <FiChevronDown size={20} color={theme.colors.brown} />
-                  )}
-                </div>
-                <ul className="to-select">
-                  {selectorOptions.map((option, index) => {
-                    return (
-                      <li
-                        key={index}
-                        value={option}
-                        onClick={() => {
-                          setInstrutorSelectorSelected(option);
-                          setIsInstrutorSelectorOpen(false);
-                        }}
-                      >
-                        {option}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-              <div className="search-container">
-                <input type="text" name="search" />
-                <button>
-                  <FiSearch size={20} color={theme.colors.brown} />
-                </button>
-              </div>
-            </div>
-            <ul></ul>
-            <Link href="/manager/new-instructor">
-              <a className="add-button">
-                <span>Adicionar</span>
-                <FiPlusCircle size={20} color={theme.colors.white} />
-              </a>
-            </Link>
-          </List>
+          <UsersList
+            users={students}
+            title="Alunos"
+            addLink="/manager/student"
+          />
+          <UsersList
+            users={instructors}
+            title="Instrutores"
+            addLink="/manager/instructor"
+          />
         </ListsContainer>
       </Container>
     </div>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { ['guarapagym.token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  const apiClient = getApiClient(ctx);
+
+  const { data: instructors } = await apiClient.get('/instructors');
+  const { data: students } = await apiClient.get('/students');
+
+  return {
+    props: {
+      instructors,
+      students,
+    },
+  };
+};
 
 export default Manager;

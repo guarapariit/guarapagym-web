@@ -1,11 +1,16 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import React, { useRef, useState } from 'react';
-import { FiArrowLeft, FiCheckCircle, FiUser, FiXCircle } from 'react-icons/fi';
+import { FiArrowLeft, FiCheckCircle, FiUser } from 'react-icons/fi';
 import SideMenu from '../../../components/SideMenu';
+import { parseCookies } from 'nookies';
+import { GetServerSideProps } from 'next';
+import Image from 'next/image';
 import api from '../../../services/api';
 import InputMask from 'react-input-mask';
 import Loader from 'react-loader-spinner';
+import { InstructorI } from '../../../types';
+
 import {
   NotificationContainer,
   NotificationManager,
@@ -16,24 +21,9 @@ import {
   FormContainer,
   Modal,
 } from '../../../styles/pages/new-student';
+
 import theme from '../../../styles/theme';
-import { GetServerSideProps } from 'next';
-
-import Image from 'next/image';
 import getApiClient from '../../../services/axios';
-import instructor from '../../instructor';
-import { error } from 'node:console';
-
-interface InstructorI {
-  id: string;
-  name: string;
-  email: string;
-  cpf: string;
-  phone: string;
-  avatar_url: string;
-  created_at: string;
-  updated_at: string;
-}
 
 interface NewStudentProps {
   instructors: InstructorI[];
@@ -340,6 +330,17 @@ function NewStudent({ instructors }: NewStudentProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ctx => {
+  const { ['guarapagym.token']: token } = parseCookies(ctx);
+
+  if (!token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   const apiClient = getApiClient(ctx);
 
   const { data } = await apiClient.get('/instructors');
