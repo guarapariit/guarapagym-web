@@ -12,7 +12,7 @@ export interface User {
   phone: string;
   role: number;
   roleName: string;
-  avatar: null;
+  avatar_url: string;
   password: string;
   days: number[];
   created_at: string;
@@ -28,6 +28,7 @@ interface AuthContextProps {
   ) => Promise<{ auth: boolean; status: number; user?: User }>;
   logout: () => void;
   toggleIsRememberMeActive: () => void;
+  updateUserInfo: () => void;
   user: User;
   isRememberMeActive: boolean;
   isLoggedIn: boolean;
@@ -91,6 +92,14 @@ export default function AuthContextProvider({ children }) {
     destroyCookie(null, 'guarapagym.token');
   }
 
+  async function updateUserInfo() {
+    const { data } = await api.get('/profile');
+
+    console.log(user);
+
+    setUser(data);
+  }
+
   function toggleIsRememberMeActive() {
     setIsRememberMeActive(!isRememberMeActive);
   }
@@ -103,6 +112,7 @@ export default function AuthContextProvider({ children }) {
         isLoggedIn: isAuth,
         logout: signOut,
         authUser: signIn,
+        updateUserInfo,
         toggleIsRememberMeActive,
       }}
     >

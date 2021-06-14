@@ -164,26 +164,30 @@ export default function UsersList({ users, title, addLink }: UsersListProps) {
         </div>
       </div>
       <ul className="list">
-        {usersList.map((users, index) => {
+        {usersList.map(user => {
           return (
-            <li key={users.id}>
-              <figure>
-                {users.avatar_url ? (
-                  <Image src={users.avatar_url} height={50} width={50} />
-                ) : (
-                  <FiUser size={28} color={theme.colors.black} />
-                )}
-              </figure>
-              <div>
-                <h3>{users.name}</h3>
-                <button>
-                  <FiEdit color={theme.colors.brown} size={25} />
-                </button>
-                <button>
-                  <FiArrowRight color={theme.colors.brown} size={30} />
-                </button>
-              </div>
-            </li>
+            <Link key={user.id} href={`/manager/student/${user.id}`}>
+              <a>
+                <li>
+                  <figure>
+                    {user.avatar_url ? (
+                      <Image src={user.avatar_url} height={50} width={50} />
+                    ) : (
+                      <FiUser size={28} color={theme.colors.black} />
+                    )}
+                  </figure>
+                  <div>
+                    <h3>{user.name}</h3>
+                    <button>
+                      <FiEdit color={theme.colors.brown} size={25} />
+                    </button>
+                    <button>
+                      <FiArrowRight color={theme.colors.brown} size={30} />
+                    </button>
+                  </div>
+                </li>
+              </a>
+            </Link>
           );
         })}
       </ul>

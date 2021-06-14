@@ -68,6 +68,12 @@ export const UserControls = styled.div`
     justify-content: center;
 
     overflow: hidden;
+
+    img {
+      position: static;
+      height: 60px;
+      transform: none;
+    }
   }
 
   div {
@@ -197,10 +203,10 @@ export const Modal = styled.div`
         }
       }
 
-      figure {
+      label {
         height: 60px;
         width: 60px;
-        margin: 10px 6px 0 0;
+        margin: 10px 16px 0 0;
         margin-left: auto;
         background-color: ${theme.colors.brown};
 
@@ -209,6 +215,28 @@ export const Modal = styled.div`
         align-items: center;
 
         border-radius: 50%;
+        overflow: hidden;
+
+        cursor: pointer;
+
+        img {
+          position: static;
+          transform: none;
+          height: 60px;
+        }
+
+        + input {
+          display: none;
+        }
+      }
+
+      p {
+        width: 100%;
+        margin-top: 6px;
+        text-align: center;
+        font-size: ${rem(14)};
+        color: ${theme.colors.brown};
+        cursor: pointer;
       }
     }
 

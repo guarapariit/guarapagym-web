@@ -1,18 +1,13 @@
 import Head from 'next/head';
 import { GetServerSideProps } from 'next';
 import { parseCookies } from 'nookies';
-import { useState } from 'react';
 
 import SideMenu from '../../components/SideMenu';
+import UsersList from '../../components/UsersList';
 import getApiClient from '../../services/axios';
 
 import { InstructorI, StudentI } from '../../types';
-
 import { Container, ListsContainer } from '../../styles/pages/Menager';
-import theme from '../../styles/theme';
-import { useEffect } from 'react';
-import { getSortedRoutes } from 'next/dist/next-server/lib/router/utils';
-import UsersList from '../../components/UsersList';
 
 interface ManagerProps {
   instructors: InstructorI[];
