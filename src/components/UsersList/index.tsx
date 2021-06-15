@@ -13,6 +13,7 @@ import Link from 'next/link';
 
 import { List } from '../../styles/components/UsersList';
 import theme from '../../styles/theme';
+import { useRouter } from 'next/router';
 
 interface User {
   id: string;
@@ -24,30 +25,37 @@ interface User {
 interface UsersListProps {
   users: User[];
   title: string;
-  addLink: string;
+  linkTo: string;
+  hasAdd: boolean;
+  addLink?: string;
+  hasEdit: boolean;
+  editLink?: string;
 }
 
-export default function UsersList({ users, title, addLink }: UsersListProps) {
+export default function UsersList({
+  users,
+  title,
+  addLink,
+  hasEdit,
+  editLink,
+  linkTo,
+  hasAdd,
+}: UsersListProps) {
   const [isUsersSelectorOpen, setIsUsersSelectorOpen] = useState(false);
   const [userSelectorSelected, setUsersSelectorSelected] = useState({
-    name: 'Últimos editados',
-    value: '',
-    reversed: false,
-  });
-  const [usersList, setUsersList] = useState(users);
-  const [usersListSearchTerm, setUsersListSearchTerm] = useState('');
-  const [usersListOrderTerm, setUsersListOrderTerm] = useState({
     name: 'Últimos editados',
     value: 'updated_at',
     reversed: false,
   });
+  const [usersList, setUsersList] = useState(users);
+  const [usersListSearchTerm, setUsersListSearchTerm] = useState('');
 
   const selectorOptions = [
-    { name: 'Últimos editados', value: 'updated_at', reversed: false },
+    { name: 'Últimos editados', value: 'updated_at', reversed: true },
     {
       name: 'Tempo que foi editado',
       value: 'updated_at',
-      reversed: true,
+      reversed: false,
     },
     {
       name: 'Últimos cadastrados',
@@ -62,6 +70,8 @@ export default function UsersList({ users, title, addLink }: UsersListProps) {
     { name: 'A - Z', value: 'name', reversed: false },
     { name: 'Z - A', value: 'name', reversed: true },
   ];
+
+  const router = useRouter();
 
   useEffect(() => {
     console.log('> studentsListSearchTerm');
@@ -120,6 +130,12 @@ export default function UsersList({ users, title, addLink }: UsersListProps) {
     setIsUsersSelectorOpen(!isUsersSelectorOpen);
   }
 
+  function handleEditClick(e, userId) {
+    e.preventDefault();
+
+    router.push(`${editLink}/${userId}`);
+  }
+
   return (
     <List>
       <h2>{title}</h2>
@@ -166,7 +182,7 @@ export default function UsersList({ users, title, addLink }: UsersListProps) {
       <ul className="list">
         {usersList.map(user => {
           return (
-            <Link key={user.id} href={`/manager/student/${user.id}`}>
+            <Link key={user.id} href={`${linkTo}/${user.id}`}>
               <a>
                 <li>
                   <figure>
@@ -178,7 +194,7 @@ export default function UsersList({ users, title, addLink }: UsersListProps) {
                   </figure>
                   <div>
                     <h3>{user.name}</h3>
-                    <button>
+                    <button onClick={e => handleEditClick(e, user.id)}>
                       <FiEdit color={theme.colors.brown} size={25} />
                     </button>
                     <button>

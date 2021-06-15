@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { rem, flexCenter, colorShade, customScrollbar } from '../global';
+import { rem, flexCenter, colorShade } from '../global';
 import theme from '../theme';
 
 export const Container = styled.div`
@@ -25,12 +25,10 @@ export const FormContainer = styled.div`
   }
 
   form {
-    position: relative;
-    width: 800px;
-    padding-right: 300px;
-
     display: flex;
     flex-direction: column;
+
+    width: 500px;
 
     row-gap: 20px;
 
@@ -54,96 +52,6 @@ export const FormContainer = styled.div`
       border: none;
     }
 
-    .days-of-week {
-      display: flex;
-      flex-wrap: wrap;
-      height: 100px;
-
-      row-gap: 15px;
-
-      div {
-        height: 38px;
-        width: 135px;
-        padding: 10px;
-
-        border: solid 3px ${theme.colors.brown};
-        border-radius: 5px;
-        font-size: ${rem(15)};
-        font-weight: 600;
-        color: ${theme.colors.brown};
-
-        display: flex;
-        align-items: center;
-
-        transition: all 0.2s;
-
-        cursor: pointer;
-
-        &.selected {
-          background-color: ${theme.colors.brown};
-          color: ${theme.colors.white};
-        }
-      }
-    }
-
-    .instructors {
-      padding: 20px;
-      position: absolute;
-      top: 0;
-      right: 0;
-
-      display: block;
-      max-height: 550px;
-
-      overflow-y: auto;
-
-      ${customScrollbar()}
-
-      .card {
-        height: 80px;
-        width: 220px;
-        padding: 10px;
-        margin-bottom: 20px;
-
-        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.25);
-
-        display: flex;
-
-        figure {
-          height: 50px;
-          width: 50px;
-          margin-right: 10px;
-
-          border-radius: 50%;
-
-          ${flexCenter()}
-        }
-
-        h4 {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        button {
-          position: static;
-          margin-top: 10px;
-          padding: 10px;
-
-          height: 30px;
-          width: 130px;
-          gap: 5px;
-
-          display: flex;
-          align-items: center;
-
-          &.selected {
-            background-color: ${theme.colors.orange};
-          }
-        }
-      }
-    }
-
     .input-container {
       display: flex;
       flex-direction: column;
@@ -164,9 +72,6 @@ export const FormContainer = styled.div`
     }
 
     button {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
       width: 280px;
       height: 48px;
       margin: 0px auto;
@@ -215,7 +120,6 @@ export const Modal = styled.div`
   }
 
   .modal-container {
-    position: relative;
     height: 300px;
     width: 450px;
 
@@ -237,10 +141,9 @@ export const Modal = styled.div`
     }
 
     button {
-      position: absolute;
       height: 40px;
       width: 160px;
-      bottom: 50px;
+      margin-bottom: 10px;
 
       border: none;
       border-radius: 5px;

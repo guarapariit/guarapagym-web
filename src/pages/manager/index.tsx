@@ -28,11 +28,19 @@ function Manager({ instructors, students }: ManagerProps) {
             users={students}
             title="Alunos"
             addLink="/manager/student"
+            linkTo="/manager/student"
+            editLink="/manager/student/edit"
+            hasEdit={true}
+            hasAdd={true}
           />
           <UsersList
             users={instructors}
             title="Instrutores"
             addLink="/manager/instructor"
+            linkTo="/manager/instructor"
+            editLink="/manager/instructor/edit"
+            hasEdit={true}
+            hasAdd={true}
           />
         </ListsContainer>
       </Container>
