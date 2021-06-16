@@ -115,8 +115,14 @@ export const FormContainer = styled.div`
           margin-right: 10px;
 
           border-radius: 50%;
+          overflow: hidden;
 
           ${flexCenter()}
+
+          img {
+            height: 100%;
+            width: unset;
+          }
         }
 
         h4 {

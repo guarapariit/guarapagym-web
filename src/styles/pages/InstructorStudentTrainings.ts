@@ -25,6 +25,22 @@ export const ListsContainer = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-direction: row;
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 30px;
+
+      figure {
+        overflow: hidden;
+
+        img {
+          border-radius: 50%;
+          height: 100px;
+        }
+      }
+    }
   }
 
   .container {

@@ -45,7 +45,7 @@ const TrainingListItem: React.FC<TrainingListItemProps> = ({ training }) => {
                       {sequency.exercise.name}
                     </strong>
                   </div>
-                  <a>
+                  <a href={sequency.exercise.video_url} target="_blank">
                     Como fazer? <FiArrowRight size={30} />
                   </a>
                 </SequencyListItem>

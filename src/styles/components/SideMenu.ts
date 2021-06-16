@@ -13,7 +13,8 @@ export const Container = styled.div`
 
   h3 {
     position: absolute;
-    left: 185px;
+    width: fit-content;
+    left: 140px;
     font-size: ${rem(26)};
 
     transform: rotate(-90deg) translateX(calc(-50% - 5px));
