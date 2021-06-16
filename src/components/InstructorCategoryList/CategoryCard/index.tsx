@@ -6,55 +6,39 @@ import {
 } from 'react-notifications';
 
 import CustomSelector from '../../CustomSelector';
-import { Card } from '../../../styles/components/Instructor/ExerciseCard';
+import { Card } from '../../../styles/components/Instructor/CategoryCard';
 import { Category, ExerciseI } from '../../../types';
 import theme from '../../../styles/theme';
 import api from '../../../services/api';
 
-interface ExerciseCardProps {
-  exercise?: ExerciseI;
-  categories: Category[];
+interface CategoryCardProps {
+  category?: Category;
   add?: boolean;
   savedCallback?: any;
 }
 
-export default function ExerciseCard({
-  exercise,
-  categories,
+export default function CategoryCard({
+  category,
   add,
   savedCallback,
-}: ExerciseCardProps) {
+}: CategoryCardProps) {
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
   const [name, setName] = useState('');
-  const [category, setCategory] = useState('');
-  const [videoUrl, setVideoUrl] = useState('');
 
   useEffect(() => {
-    if (exercise) {
+    if (category) {
       fillForm();
     }
   }, []);
 
-  useEffect(() => {
-    console.log(videoUrl);
-  }, [videoUrl]);
-
   function fillForm() {
-    const { name, category, video_url } = exercise;
+    const { name } = category;
 
     setName(name);
-    setCategory(category.id);
-    setVideoUrl(video_url);
   }
 
   function isFilled() {
-    console.log('name', name);
-    console.log('category', category);
-    console.log('video', videoUrl);
-
     if (name === '') return false;
-    if (category === '') return false;
-    if (videoUrl === '') return false;
 
     return true;
   }
@@ -62,12 +46,10 @@ export default function ExerciseCard({
   function handleSubmit(e) {
     e.preventDefault();
 
-    console.log('clickar');
+    console.log('submitou');
 
     const data = {
       name,
-      category_id: category,
-      video_url: videoUrl,
     };
 
     if (add) {
@@ -75,7 +57,7 @@ export default function ExerciseCard({
 
       if (isFilled()) {
         api
-          .post('/exercises', data)
+          .post('/categories', data)
           .then(response => {
             NotificationManager.success('', 'Salvo!', 3000);
             savedCallback();
@@ -85,11 +67,11 @@ export default function ExerciseCard({
             console.log(error.response.data);
           });
       } else {
-        NotificationManager.error('', 'Preencha todos os Campos!', 3000);
+        NotificationManager.error('', 'Preencha o Campo!', 3000);
       }
     } else {
       api
-        .put(`/exercises/${exercise.id}`, data)
+        .put(`/categories/${category.id}`, data)
         .then(response => {
           NotificationManager.success('', 'Salvo!', 3000);
           savedCallback();
@@ -102,10 +84,10 @@ export default function ExerciseCard({
   }
 
   function handleDelete() {
-    console.log(`/exercises/${exercise.id}`);
+    console.log(`/categories/${category.id}`);
 
     api
-      .delete(`/exercises/${exercise.id}`)
+      .delete(`/categories/${category.id}`)
       .then(response => {
         NotificationManager.success('', 'Salvo!', 3000);
         savedCallback();
@@ -120,38 +102,14 @@ export default function ExerciseCard({
     <Card>
       <form onSubmit={e => handleSubmit(e)}>
         <fieldset className="inputs">
-          <fieldset>
-            <div className="input-wrapper name">
-              <label htmlFor="name">Nome</label>
-              <input
-                type="text"
-                name="name"
-                value={name}
-                onChange={e => {
-                  setName(e.target.value);
-                }}
-              />
-            </div>
-
-            <div className="input-wrapper category">
-              <label htmlFor="name">Categoria</label>
-              <CustomSelector
-                selected={exercise?.category || categories[0]}
-                toSelect={categories}
-                showKey={'name'}
-                callback={value => setCategory(value.id)}
-              />
-            </div>
-          </fieldset>
-
-          <div className="input-wrapper video">
-            <label htmlFor="name">Link do vídeo</label>
+          <div className="input-wrapper name">
+            <label htmlFor="name">Nome</label>
             <input
               type="text"
-              name="video"
-              value={videoUrl}
+              name="name"
+              value={name}
               onChange={e => {
-                setVideoUrl(e.target.value);
+                setName(e.target.value);
               }}
             />
           </div>

@@ -4,6 +4,7 @@ import { parseCookies } from 'nookies';
 
 import SideMenu from '../../../components/SideMenu';
 import InstructorExercisesList from '../../../components/InstructorExercisesList';
+import InstructorCategoryList from '../../../components/InstructorCategoryList';
 import getApiClient from '../../../services/axios';
 import { FiArrowLeft } from 'react-icons/fi';
 
@@ -42,13 +43,7 @@ function Manager({ exercises, categories }: ManagerProps) {
               exercises={exercises}
               categories={categories}
             />
-
-            <div className="list-wrapper">
-              <h3>Categorias:</h3>
-              <ul>
-                <li className="list-item exercise"></li>
-              </ul>
-            </div>
+            <InstructorCategoryList categories={categories} />
           </div>
         </ListsContainer>
       </Container>
