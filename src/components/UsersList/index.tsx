@@ -194,9 +194,13 @@ export default function UsersList({
                   </figure>
                   <div>
                     <h3>{user.name}</h3>
-                    <button onClick={e => handleEditClick(e, user.id)}>
-                      <FiEdit color={theme.colors.brown} size={25} />
-                    </button>
+                    {hasEdit ? (
+                      <button onClick={e => handleEditClick(e, user.id)}>
+                        <FiEdit color={theme.colors.brown} size={25} />
+                      </button>
+                    ) : (
+                      ''
+                    )}
                     <button>
                       <FiArrowRight color={theme.colors.brown} size={30} />
                     </button>
@@ -207,12 +211,16 @@ export default function UsersList({
           );
         })}
       </ul>
-      <Link href={addLink}>
-        <a className="add-button">
-          <span>Adicionar</span>
-          <FiPlusCircle size={20} color={theme.colors.white} />
-        </a>
-      </Link>
+      {hasAdd ? (
+        <Link href={addLink}>
+          <a className="add-button">
+            <span>Adicionar</span>
+            <FiPlusCircle size={20} color={theme.colors.white} />
+          </a>
+        </Link>
+      ) : (
+        ''
+      )}
     </List>
   );
 }

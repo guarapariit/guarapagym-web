@@ -21,3 +21,20 @@ export interface StudentI {
   created_at: string;
   updated_at: string;
 }
+
+export interface ExerciseI {
+  id: string;
+  name: string;
+  category_id: string;
+  category: Category;
+  video_url: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Category {
+  id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}

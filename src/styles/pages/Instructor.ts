@@ -7,7 +7,6 @@ export const Container = styled.div`
   width: 100vw;
 
   display: flex;
-  flex-direction: column;
 `;
 
 export const ListsContainer = styled.div`
@@ -15,4 +14,26 @@ export const ListsContainer = styled.div`
   padding: 30px 40px;
 
   display: flex;
+  flex-direction: column;
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+
+    justify-content: space-between;
+    align-items: center;
+
+    h2 {
+      font-size: 32px;
+    }
+
+    a {
+      display: flex;
+      align-items: center;
+
+      font-size: 24px;
+
+      gap: 8px;
+    }
+  }
 `;

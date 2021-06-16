@@ -5,9 +5,11 @@ import { parseCookies } from 'nookies';
 import SideMenu from '../../components/SideMenu';
 import UsersList from '../../components/UsersList';
 import getApiClient from '../../services/axios';
+import { FiArrowRight } from 'react-icons/fi';
 
 import { StudentI } from '../../types';
 import { Container, ListsContainer } from '../../styles/pages/Instructor';
+import Link from 'next/link';
 
 interface ManagerProps {
   students: StudentI[];
@@ -23,11 +25,18 @@ function Manager({ students }: ManagerProps) {
       <Container>
         <SideMenu />
         <ListsContainer>
+          <div className="controls">
+            <h2>Alunos</h2>
+            <Link href="/instructor/exercises">
+              <a>
+                Exercicios <FiArrowRight />{' '}
+              </a>
+            </Link>
+          </div>
           <UsersList
             users={students}
-            title="Alunos"
-            addLink="/manager/student"
-            linkTo="/manager/students"
+            title=""
+            linkTo="/instructor/student"
             hasEdit={false}
             hasAdd={false}
           />
