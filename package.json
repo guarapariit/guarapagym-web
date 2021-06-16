@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "date-fns": "^2.22.1",
     "next": "^10.2.3",
     "next-images": "^1.4.1",
     "nookies": "^2.5.2",

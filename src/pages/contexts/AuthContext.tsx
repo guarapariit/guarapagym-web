@@ -97,6 +97,12 @@ export default function AuthContextProvider({ children }) {
 
     console.log(user);
 
+    if (isRememberMeActive) {
+      setCookie(undefined, 'guarapagym.user', JSON.stringify(data), {
+        maxAge: 60 * 60 * 24, // 1 day
+      });
+    }
+
     setUser(data);
   }
 

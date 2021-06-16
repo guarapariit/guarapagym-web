@@ -9,6 +9,7 @@ const theme = {
     salmon: '#FCEEE5',
     white: '#fafafa',
     brown: '#644F4F',
+    brightGray: '#b0b0b0',
   },
 };
 

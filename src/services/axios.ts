@@ -5,7 +5,8 @@ export default function getApiClient(ctx?: any) {
   const { 'guarapagym.token': token } = parseCookies(ctx);
 
   const api = axios.create({
-    baseURL: 'https://guarapagym.herokuapp.com',
+    // baseURL: 'https://guarapagym.herokuapp.com',
+    baseURL: 'http://localhost:3333',
   });
 
   api.interceptors.request.use(config => {
