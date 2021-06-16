@@ -22,7 +22,7 @@ export interface StudentI {
   updated_at: string;
 }
 
-export interface Exercise {
+export interface ExerciseI {
   id: string;
   name: string;
   category_id: string;
@@ -66,7 +66,7 @@ export interface TrainingsSequency {
 export interface Sequency {
   id: string;
   exercise_id: string;
-  exercise: Exercise;
+  exercise: ExerciseI;
   sets: number;
   repetitions: number;
   created_at: string;
